@@ -73,11 +73,11 @@ transition: background 0.2s, transform 0.15s;
 
 /* ── HERO ── */
 .hero {
-min-height: 100vh;
+min-height: calc(100vh - 70px);
 display: grid;
 grid-template-columns: 1fr 1fr;
 align-items: center;
-padding: 8rem 3rem 4rem;
+padding: 4rem 3rem 4rem;
 gap: 4rem;
 max-width: 1200px;
 margin: 0 auto;
@@ -530,6 +530,25 @@ section { padding: 4rem 1.5rem; }
 .pricing-grid { grid-template-columns: 1fr; }
 .faq-grid { grid-template-columns: 1fr; }
 }
+
+@media (max-width: 600px) {
+nav {
+padding: 0.9rem 1.2rem;
+}
+.nav-link {
+display: none;
+}
+.nav-right {
+gap: 0;
+}
+.btn-nav {
+font-size: 0.78rem;
+padding: 0.5rem 1rem;
+}
+.nav-logo {
+font-size: 1.2rem;
+}
+}
 </style>
 
 </head>
@@ -548,7 +567,7 @@ section { padding: 4rem 1.5rem; }
 
 <!-- HERO -->
 
-<div class="hero">
+<div style="padding-top:70px"><div class="hero">
   <div class="hero-left">
     <div class="hero-eyebrow">✦ Propulsé par l'IA</div>
     <h1>Vos fiches produits,<br><em>rédigées en 10 sec.</em></h1>
@@ -602,7 +621,7 @@ section { padding: 4rem 1.5rem; }
       </div>
     </div>
   </div>
-</div>
+</div></div>
 
 <!-- HOW IT WORKS -->
 
@@ -748,7 +767,7 @@ section { padding: 4rem 1.5rem; }
           <li>Historique de vos fiches</li>
           <li>Support prioritaire</li>
         </ul>
-        <a href="#" class="btn-plan cta">Passer Pro →</a>
+        <a href="https://buy.stripe.com/9B64gzbckcV1dV5eVVes000" class="btn-plan cta" target="_blank">Passer Pro →</a>
       </div>
     </div>
   </div>
