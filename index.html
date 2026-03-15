@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PitchCraft — Fiches produits IA en 10 secondes</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+–black: #0a0906;
+–cream: #f7f3ec;
+–warm: #ede8de;
+–gold: #c8a951;
+–gold2: #e8d48a;
+–rust: #bf4e2b;
+–muted: #7a7468;
+–border: #ddd8cc;
+–white: #ffffff;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+font-family: ‘DM Sans’, sans-serif;
+background: var(–cream);
+color: var(–black);
+overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+position: fixed; top: 0; left: 0; right: 0;
+z-index: 200;
+display: flex; align-items: center; justify-content: space-between;
+padding: 1.2rem 3rem;
+background: rgba(247,243,236,0.92);
+backdrop-filter: blur(12px);
+border-bottom: 1px solid var(–border);
+}
+.nav-logo {
+font-family: ‘Fraunces’, serif;
+font-size: 1.4rem;
+font-weight: 900;
+letter-spacing: -0.03em;
+}
+.nav-logo span { color: var(–gold); }
+.nav-right { display: flex; align-items: center; gap: 1.2rem; }
+.nav-link {
+font-size: 0.85rem;
+font-weight: 500;
+color: var(–muted);
+text-decoration: none;
+transition: color 0.2s;
+}
+.nav-link:hover { color: var(–black); }
+.btn-nav {
+padding: 0.6rem 1.4rem;
+background: var(–black);
+color: var(–cream);
+border: none;
+border-radius: 100px;
+font-family: ‘DM Sans’, sans-serif;
+font-size: 0.85rem;
+font-weight: 500;
+cursor: pointer;
+text-decoration: none;
+transition: background 0.2s, transform 0.15s;
+}
+.btn-nav:hover { background: #2a2720; transform: translateY(-1px); }
+
+/* ── HERO ── */
+.hero {
+min-height: calc(100vh - 70px);
+display: grid;
+grid-template-columns: 1fr 1fr;
+align-items: center;
+padding: 4rem 3rem 4rem;
+gap: 4rem;
+max-width: 1200px;
+margin: 0 auto;
+}
+.hero-left { }
+.hero-eyebrow {
+display: inline-flex;
+align-items: center;
+gap: 0.5rem;
+font-size: 0.72rem;
+font-weight: 600;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(–rust);
+margin-bottom: 1.6rem;
+background: rgba(191,78,43,0.08);
+padding: 0.4rem 1rem;
+border-radius: 100px;
+border: 1px solid rgba(191,78,43,0.2);
+animation: fadeUp 0.6s ease 0.1s both;
+}
+.hero h1 {
+font-family: ‘Fraunces’, serif;
+font-size: clamp(3rem, 5vw, 5rem);
+font-weight: 900;
+line-height: 1.0;
+letter-spacing: -0.04em;
+margin-bottom: 1.6rem;
+animation: fadeUp 0.6s ease 0.2s both;
+}
+.hero h1 em {
+font-style: italic;
+font-weight: 300;
+color: var(–gold);
+display: block;
+}
+.hero-sub {
+font-size: 1.1rem;
+font-weight: 300;
+color: var(–muted);
+line-height: 1.75;
+max-width: 420px;
+margin-bottom: 2.5rem;
+animation: fadeUp 0.6s ease 0.3s both;
+}
+.hero-cta-group {
+display: flex;
+align-items: center;
+gap: 1rem;
+flex-wrap: wrap;
+animation: fadeUp 0.6s ease 0.4s both;
+}
+.btn-primary {
+padding: 1rem 2rem;
+background: var(–black);
+color: var(–cream);
+border: none;
+border-radius: 12px;
+font-family: ‘DM Sans’, sans-serif;
+font-size: 1rem;
+font-weight: 600;
+cursor: pointer;
+text-decoration: none;
+transition: all 0.2s;
+display: inline-flex;
+align-items: center;
+gap: 0.5rem;
+}
+.btn-primary:hover { background: #2a2720; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+.btn-ghost {
+font-size: 0.9rem;
+font-weight: 500;
+color: var(–muted);
+text-decoration: none;
+display: inline-flex;
+align-items: center;
+gap: 0.4rem;
+transition: color 0.2s;
+}
+.btn-ghost:hover { color: var(–black); }
+.hero-trust {
+margin-top: 2.5rem;
+display: flex;
+align-items: center;
+gap: 1rem;
+animation: fadeUp 0.6s ease 0.5s both;
+}
+.avatars {
+display: flex;
+}
+.avatar {
+width: 32px; height: 32px;
+border-radius: 50%;
+border: 2px solid var(–cream);
+margin-left: -8px;
+font-size: 0.75rem;
+display: grid;
+place-items: center;
+font-weight: 600;
+color: var(–cream);
+}
+.avatar:first-child { margin-left: 0; }
+.avatar.a1 { background: #c4522a; }
+.avatar.a2 { background: #4a7c59; }
+.avatar.a3 { background: #3a5a8c; }
+.avatar.a4 { background: #8c5a3a; }
+.trust-text { font-size: 0.82rem; color: var(–muted); line-height: 1.4; }
+.trust-text strong { color: var(–black); font-weight: 600; }
+
+/* ── HERO RIGHT (DEMO CARD) ── */
+.hero-right {
+animation: fadeUp 0.7s ease 0.3s both;
+}
+.demo-card {
+background: var(–white);
+border: 1px solid var(–border);
+border-radius: 20px;
+box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+overflow: hidden;
+}
+.demo-topbar {
+background: var(–black);
+padding: 0.9rem 1.4rem;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+}
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot.r { background: #ff5f57; }
+.dot.y { background: #ffbd2e; }
+.dot.g { background: #28c840; }
+.demo-topbar span {
+margin-left: auto;
+font-size: 0.72rem;
+color: rgba(255,255,255,0.4);
+letter-spacing: 0.06em;
+}
+.demo-body { padding: 1.8rem; }
+.demo-input-row {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 0.7rem;
+margin-bottom: 0.7rem;
+}
+.demo-field {
+background: var(–cream);
+border: 1px solid var(–border);
+border-radius: 8px;
+padding: 0.65rem 0.9rem;
+font-size: 0.8rem;
+color: var(–black);
+}
+.demo-field.full { grid-column: 1/-1; }
+.demo-label { font-size: 0.65rem; color: var(–muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.25rem; }
+.demo-value { font-size: 0.85rem; font-weight: 500; }
+.demo-btn {
+width: 100%;
+margin: 1rem 0;
+padding: 0.85rem;
+background: var(–black);
+color: var(–cream);
+border-radius: 10px;
+text-align: center;
+font-size: 0.85rem;
+font-weight: 600;
+}
+.demo-result {
+background: linear-gradient(135deg, #fff9ee 0%, #fffdf7 100%);
+border: 1px solid #e8d49a;
+border-radius: 12px;
+padding: 1.2rem;
+}
+.demo-result-tag {
+font-size: 0.65rem;
+color: var(–gold);
+text-transform: uppercase;
+letter-spacing: 0.1em;
+font-weight: 600;
+margin-bottom: 0.6rem;
+}
+.demo-result-title {
+font-family: ‘Fraunces’, serif;
+font-size: 1rem;
+font-weight: 700;
+margin-bottom: 0.5rem;
+}
+.demo-result-text {
+font-size: 0.78rem;
+color: var(–muted);
+line-height: 1.6;
+}
+.demo-result-bullets {
+margin-top: 0.6rem;
+display: flex;
+flex-direction: column;
+gap: 0.25rem;
+}
+.demo-bullet {
+font-size: 0.76rem;
+color: var(–black);
+display: flex;
+gap: 0.4rem;
+}
+.demo-bullet::before { content: ‘✓’; color: var(–gold); font-weight: 700; flex-shrink: 0; }
+
+/* ── SECTION COMMON ── */
+section { padding: 6rem 3rem; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+.section-tag {
+display: inline-block;
+font-size: 0.68rem;
+font-weight: 600;
+letter-spacing: 0.14em;
+text-transform: uppercase;
+color: var(–rust);
+margin-bottom: 1rem;
+}
+.section-title {
+font-family: ‘Fraunces’, serif;
+font-size: clamp(2rem, 4vw, 3.2rem);
+font-weight: 900;
+line-height: 1.1;
+letter-spacing: -0.03em;
+margin-bottom: 1rem;
+}
+.section-title em { font-style: italic; font-weight: 300; color: var(–gold); }
+.section-sub {
+font-size: 1rem;
+color: var(–muted);
+font-weight: 300;
+line-height: 1.7;
+max-width: 520px;
+}
+
+/* ── HOW IT WORKS ── */
+.how { background: var(–black); color: var(–cream); }
+.how .section-tag { color: var(–gold2); }
+.how .section-title { color: var(–cream); }
+.how .section-sub { color: rgba(247,243,236,0.6); }
+.steps-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 2rem;
+margin-top: 3.5rem;
+}
+.step-card {
+background: rgba(255,255,255,0.04);
+border: 1px solid rgba(255,255,255,0.08);
+border-radius: 16px;
+padding: 2rem;
+transition: border-color 0.2s;
+}
+.step-card:hover { border-color: rgba(200,169,81,0.4); }
+.step-num {
+font-family: ‘Fraunces’, serif;
+font-size: 3rem;
+font-weight: 900;
+color: var(–gold);
+opacity: 0.6;
+line-height: 1;
+margin-bottom: 1rem;
+}
+.step-title {
+font-family: ‘Fraunces’, serif;
+font-size: 1.2rem;
+font-weight: 700;
+margin-bottom: 0.6rem;
+}
+.step-desc { font-size: 0.88rem; color: rgba(247,243,236,0.55); line-height: 1.65; font-weight: 300; }
+
+/* ── FEATURES ── */
+.features { background: var(–warm); }
+.features-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 1.5rem;
+margin-top: 3rem;
+}
+.feature-card {
+background: var(–white);
+border: 1px solid var(–border);
+border-radius: 16px;
+padding: 1.8rem;
+transition: transform 0.2s, box-shadow 0.2s;
+}
+.feature-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.07); }
+.feature-icon { font-size: 2rem; margin-bottom: 1rem; }
+.feature-title { font-family: ‘Fraunces’, serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+.feature-desc { font-size: 0.85rem; color: var(–muted); line-height: 1.65; font-weight: 300; }
+
+/* ── TESTIMONIALS ── */
+.testimonials { }
+.testi-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 1.5rem;
+margin-top: 3rem;
+}
+.testi-card {
+background: var(–white);
+border: 1px solid var(–border);
+border-radius: 16px;
+padding: 1.8rem;
+}
+.testi-stars { color: var(–gold); font-size: 0.9rem; margin-bottom: 1rem; letter-spacing: 2px; }
+.testi-text { font-size: 0.9rem; line-height: 1.7; color: var(–black); margin-bottom: 1.4rem; font-style: italic; }
+.testi-author { display: flex; align-items: center; gap: 0.8rem; }
+.testi-avatar {
+width: 38px; height: 38px;
+border-radius: 50%;
+display: grid; place-items: center;
+font-weight: 700; font-size: 0.85rem;
+color: var(–cream);
+flex-shrink: 0;
+}
+.testi-name { font-size: 0.85rem; font-weight: 600; }
+.testi-role { font-size: 0.75rem; color: var(–muted); }
+
+/* ── PRICING ── */
+.pricing { background: var(–black); color: var(–cream); }
+.pricing .section-title { color: var(–cream); }
+.pricing .section-sub { color: rgba(247,243,236,0.55); }
+.pricing-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 1.5rem;
+margin-top: 3.5rem;
+max-width: 700px;
+}
+.pricing-card {
+background: rgba(255,255,255,0.04);
+border: 1px solid rgba(255,255,255,0.1);
+border-radius: 20px;
+padding: 2.4rem;
+}
+.pricing-card.featured {
+background: var(–cream);
+color: var(–black);
+border-color: transparent;
+position: relative;
+}
+.featured-badge {
+position: absolute;
+top: -12px; left: 50%; transform: translateX(-50%);
+background: var(–gold);
+color: var(–black);
+font-size: 0.68rem;
+font-weight: 700;
+padding: 0.25rem 1rem;
+border-radius: 100px;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+white-space: nowrap;
+}
+.plan-name { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-bottom: 1rem; opacity: 0.6; }
+.pricing-card.featured .plan-name { color: var(–black); }
+.plan-price {
+font-family: ‘Fraunces’, serif;
+font-size: 3.5rem;
+font-weight: 900;
+line-height: 1;
+margin-bottom: 0.3rem;
+}
+.plan-price sup { font-size: 1.5rem; font-weight: 400; vertical-align: super; }
+.plan-period { font-size: 0.8rem; opacity: 0.5; margin-bottom: 1.8rem; }
+.plan-features { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 2rem; }
+.plan-features li { font-size: 0.88rem; display: flex; gap: 0.7rem; align-items: flex-start; }
+.plan-features li::before { content: ‘✓’; color: var(–gold); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+.pricing-card:not(.featured) .plan-features li::before { color: var(–gold2); }
+.btn-plan {
+width: 100%;
+padding: 0.95rem;
+border-radius: 12px;
+font-family: ‘DM Sans’, sans-serif;
+font-size: 0.95rem;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.2s;
+border: none;
+text-decoration: none;
+display: block;
+text-align: center;
+}
+.btn-plan.dark { background: rgba(255,255,255,0.08); color: var(–cream); }
+.btn-plan.dark:hover { background: rgba(255,255,255,0.14); }
+.btn-plan.cta { background: var(–black); color: var(–cream); }
+.btn-plan.cta:hover { background: #1a1915; transform: translateY(-1px); }
+
+/* ── FAQ ── */
+.faq { }
+.faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 3rem; }
+.faq-item {
+background: var(–white);
+border: 1px solid var(–border);
+border-radius: 14px;
+padding: 1.6rem;
+}
+.faq-q { font-family: ‘Fraunces’, serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.6rem; }
+.faq-a { font-size: 0.87rem; color: var(–muted); line-height: 1.65; font-weight: 300; }
+
+/* ── CTA FINALE ── */
+.cta-final {
+background: linear-gradient(135deg, #1a1710 0%, var(–black) 100%);
+text-align: center;
+color: var(–cream);
+}
+.cta-final .section-title { color: var(–cream); }
+.cta-final .section-sub { color: rgba(247,243,236,0.55); margin: 0 auto 2.5rem; }
+.btn-cta-big {
+padding: 1.2rem 2.8rem;
+background: var(–gold);
+color: var(–black);
+border: none;
+border-radius: 14px;
+font-family: ‘DM Sans’, sans-serif;
+font-size: 1.1rem;
+font-weight: 700;
+cursor: pointer;
+text-decoration: none;
+transition: all 0.2s;
+display: inline-block;
+}
+.btn-cta-big:hover { background: var(–gold2); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(200,169,81,0.3); }
+.cta-note { margin-top: 1.2rem; font-size: 0.8rem; opacity: 0.4; }
+
+/* ── FOOTER ── */
+footer {
+background: var(–black);
+color: rgba(247,243,236,0.4);
+text-align: center;
+padding: 2rem 3rem;
+font-size: 0.8rem;
+border-top: 1px solid rgba(255,255,255,0.05);
+}
+footer a { color: rgba(247,243,236,0.4); text-decoration: none; }
+footer a:hover { color: var(–cream); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+nav { padding: 1rem 1.5rem; }
+.hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; gap: 3rem; }
+section { padding: 4rem 1.5rem; }
+.steps-grid, .features-grid, .testi-grid { grid-template-columns: 1fr; }
+.pricing-grid { grid-template-columns: 1fr; }
+.faq-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+nav {
+padding: 0.9rem 1.2rem;
+}
+.nav-link {
+display: none;
+}
+.nav-right {
+gap: 0;
+}
+.btn-nav {
+font-size: 0.78rem;
+padding: 0.5rem 1rem;
+}
+.nav-logo {
+font-size: 1.2rem;
+}
+}
+</style>
+
+</head>
+<body>
+
+<!-- NAV -->
+
+<nav>
+  <div class="nav-logo">Pitch<span>Craft</span></div>
+  <div class="nav-right">
+    <a href="#comment" class="nav-link">Comment ça marche</a>
+    <a href="#tarifs" class="nav-link">Tarifs</a>
+    <a href="pitchcraft.html" class="btn-nav">Essayer gratuitement →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+
+<div style="padding-top:70px"><div class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">✦ Propulsé par l'IA</div>
+    <h1>Vos fiches produits,<br><em>rédigées en 10 sec.</em></h1>
+    <p class="hero-sub">Décrivez votre produit en quelques mots. PitchCraft génère instantanément une fiche commerciale, un pitch ou un post LinkedIn qui convertit.</p>
+    <div class="hero-cta-group">
+      <a href="pitchcraft.html" class="btn-primary">✦ Essayer gratuitement</a>
+      <a href="#comment" class="btn-ghost">Voir comment ça marche ↓</a>
+    </div>
+    <div class="hero-trust">
+      <div class="avatars">
+        <div class="avatar a1">M</div>
+        <div class="avatar a2">S</div>
+        <div class="avatar a3">J</div>
+        <div class="avatar a4">L</div>
+      </div>
+      <div class="trust-text"><strong>+200 freelances & entrepreneurs</strong><br>utilisent PitchCraft chaque semaine</div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="demo-card">
+      <div class="demo-topbar">
+        <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+        <span>PitchCraft — app.pitchcraft.fr</span>
+      </div>
+      <div class="demo-body">
+        <div class="demo-input-row">
+          <div class="demo-field">
+            <div class="demo-label">Produit</div>
+            <div class="demo-value">Coaching carrière</div>
+          </div>
+          <div class="demo-field">
+            <div class="demo-label">Cible</div>
+            <div class="demo-value">Cadres 35-50 ans</div>
+          </div>
+          <div class="demo-field full">
+            <div class="demo-label">Description</div>
+            <div class="demo-value">Accompagnement 3 mois pour décrocher un poste senior…</div>
+          </div>
+        </div>
+        <div class="demo-btn">✦ Générer ma fiche</div>
+        <div class="demo-result">
+          <div class="demo-result-tag">✦ Fiche générée en 4 sec</div>
+          <div class="demo-result-title">Propulsez votre carrière au niveau supérieur</div>
+          <div class="demo-result-text">Un coaching sur-mesure pour les cadres ambitieux qui veulent décrocher le poste qu'ils méritent — en 3 mois.</div>
+          <div class="demo-result-bullets">
+            <div class="demo-bullet">Méthodologie éprouvée sur 150+ clients</div>
+            <div class="demo-bullet">Réseau & LinkedIn optimisés</div>
+            <div class="demo-bullet">Taux de réussite : 91%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></div>
+
+<!-- HOW IT WORKS -->
+
+<section class="how" id="comment">
+  <div class="section-inner">
+    <div class="section-tag">Comment ça marche</div>
+    <h2 class="section-title">Simple comme<br><em>bonjour.</em></h2>
+    <p class="section-sub">Pas besoin d'être copywriter. Pas besoin de passer 2 heures sur un texte. L'IA fait le travail.</p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-title">Décrivez votre produit</div>
+        <div class="step-desc">Remplissez 4 champs en moins de 60 secondes : nom, description, cible, prix. Pas besoin d'être précis au mot près.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div class="step-title">Choisissez le format</div>
+        <div class="step-desc">Fiche produit structurée, pitch de 30 secondes, ou post LinkedIn prêt à publier. Sélectionnez le ton qui vous correspond.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-title">Copiez & publiez</div>
+        <div class="step-desc">Votre contenu est prêt en quelques secondes. Copiez-le, ajustez si vous le souhaitez, et publiez directement.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+
+<section class="features">
+  <div class="section-inner">
+    <div class="section-tag">Fonctionnalités</div>
+    <h2 class="section-title">Tout ce dont vous<br><em>avez besoin.</em></h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📄</div>
+        <div class="feature-title">Fiche produit complète</div>
+        <div class="feature-desc">Structure professionnelle avec accroche, bénéfices, et appel à l'action. Prête à coller sur votre site.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <div class="feature-title">Pitch 30 secondes</div>
+        <div class="feature-desc">Pour vous présenter en réunion, au téléphone ou en networking. Impactant, mémorable, court.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💼</div>
+        <div class="feature-title">Post LinkedIn</div>
+        <div class="feature-desc">Rédigé pour l'algorithme et l'engagement. Avec hooks, structure narrative et hashtags pertinents.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <div class="feature-title">5 tons différents</div>
+        <div class="feature-desc">Professionnel, luxe, enthousiaste, direct ou chaleureux. Adaptez le style à votre image de marque.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-title">Résultat en 10 secondes</div>
+        <div class="feature-desc">Propulsé par Claude, l'un des meilleurs modèles d'IA au monde. Rapide, précis, et toujours pertinent.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">♾️</div>
+        <div class="feature-title">Générations illimitées</div>
+        <div class="feature-desc">En version Pro, générez autant de fiches que vous voulez. Testez, itérez, perfectionnez.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+
+<section class="testimonials">
+  <div class="section-inner">
+    <div class="section-tag">Témoignages</div>
+    <h2 class="section-title">Ils ont testé.<br><em>Ils adorent.</em></h2>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"J'ai passé 2 ans à galérer sur mes descriptions de service. En 30 secondes, PitchCraft a écrit exactement ce que j'aurais voulu dire."</div>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:#c4522a;">M</div>
+          <div>
+            <div class="testi-name">Marie D.</div>
+            <div class="testi-role">Coach en développement personnel</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Mon taux de conversion sur ma page de vente a augmenté de 34% depuis que j'utilise les fiches générées. Bluffant."</div>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:#4a7c59;">S</div>
+          <div>
+            <div class="testi-name">Sébastien L.</div>
+            <div class="testi-role">Consultant indépendant</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"J'envoie le pitch LinkedIn à mes prospects. C'est devenu mon outil numéro 1 pour décrocher des appels de découverte."</div>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:#3a5a8c;">J</div>
+          <div>
+            <div class="testi-name">Julie T.</div>
+            <div class="testi-role">Graphiste freelance</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+
+<section class="pricing" id="tarifs">
+  <div class="section-inner">
+    <div class="section-tag" style="color:var(--gold2);">Tarifs</div>
+    <h2 class="section-title" style="color:var(--cream);">Simple &<br><em>transparent.</em></h2>
+    <p class="section-sub">Commencez gratuitement. Passez Pro quand vous êtes convaincu.</p>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="plan-name">Gratuit</div>
+        <div class="plan-price"><sup>€</sup>0</div>
+        <div class="plan-period">pour toujours</div>
+        <ul class="plan-features">
+          <li>3 générations gratuites</li>
+          <li>Tous les formats (fiche, pitch, LinkedIn)</li>
+          <li>5 tons disponibles</li>
+          <li>Copier-coller instantané</li>
+        </ul>
+        <a href="pitchcraft.html" class="btn-plan dark">Commencer gratuitement</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="featured-badge">✦ Le plus populaire</div>
+        <div class="plan-name" style="color:var(--muted);">Pro</div>
+        <div class="plan-price" style="color:var(--black);"><sup>€</sup>9</div>
+        <div class="plan-period" style="color:var(--muted);">par mois · sans engagement</div>
+        <ul class="plan-features" style="color:var(--black);">
+          <li>Générations <strong>illimitées</strong></li>
+          <li>Tous les formats + nouveaux formats</li>
+          <li>Export PDF & Word</li>
+          <li>Historique de vos fiches</li>
+          <li>Support prioritaire</li>
+        </ul>
+        <a href="https://buy.stripe.com/9B64gzbckcV1dV5eVVes000" class="btn-plan cta" target="_blank">Passer Pro →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+
+<section class="faq">
+  <div class="section-inner">
+    <div class="section-tag">Questions fréquentes</div>
+    <h2 class="section-title">Vous avez des<br><em>questions ?</em></h2>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <div class="faq-q">Est-ce vraiment sans abonnement au départ ?</div>
+        <div class="faq-a">Oui. Vous pouvez générer 3 fiches gratuitement, sans carte bancaire. Si vous voulez l'illimité, le plan Pro est à 9€/mois sans engagement.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Le contenu généré m'appartient-il ?</div>
+        <div class="faq-a">Absolument. Tout ce que vous générez sur PitchCraft vous appartient entièrement. Utilisez-le comme bon vous semble.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Ça fonctionne pour quel type de produit ?</div>
+        <div class="faq-a">Services freelance, formations en ligne, produits e-commerce, SaaS, coaching, artisanat... L'IA s'adapte à tous les secteurs.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Je n'ai pas de connaissances techniques. C'est pour moi ?</div>
+        <div class="faq-a">PitchCraft a été conçu pour des non-techniciens. Si vous savez remplir un formulaire, vous savez utiliser PitchCraft.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINALE -->
+
+<section class="cta-final">
+  <div class="section-inner" style="text-align:center;">
+    <div class="section-tag" style="color:var(--gold2);">Prêt à commencer ?</div>
+    <h2 class="section-title" style="color:var(--cream); margin:0 auto 1rem;">Votre première fiche<br><em>en 10 secondes.</em></h2>
+    <p class="section-sub" style="margin:0 auto 2.5rem;">Rejoignez 200+ entrepreneurs et freelances qui gagnent du temps chaque semaine avec PitchCraft.</p>
+    <a href="pitchcraft.html" class="btn-cta-big">✦ Essayer gratuitement maintenant</a>
+    <div class="cta-note">Gratuit · Aucune carte bancaire requise · Résultat en 10 secondes</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+  <p>© 2025 PitchCraft · <a href="#">Mentions légales</a> · <a href="#">Contact</a></p>
+</footer>
+
+</body>
+</html>
