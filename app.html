@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PitchCraft — Fiches produits IA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+–ink: #0f0e0c;
+–cream: #faf7f2;
+–warm: #f0ebe0;
+–gold: #c9a84c;
+–gold-light: #e8d49a;
+–rust: #c4522a;
+–muted: #7a7468;
+–border: #ddd8cc;
+}
+
+body {
+font-family: ‘DM Sans’, sans-serif;
+background: var(–cream);
+color: var(–ink);
+min-height: 100vh;
+}
+
+/* ── HEADER ── */
+header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 1.4rem 3rem;
+border-bottom: 1px solid var(–border);
+background: var(–cream);
+position: sticky;
+top: 0;
+z-index: 100;
+}
+.logo {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.5rem;
+letter-spacing: -0.02em;
+}
+.logo span { color: var(–gold); }
+.badge {
+font-size: 0.7rem;
+font-weight: 500;
+background: var(–ink);
+color: var(–cream);
+padding: 0.25rem 0.75rem;
+border-radius: 100px;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+}
+
+/* ── HERO ── */
+.hero {
+text-align: center;
+padding: 5rem 2rem 3.5rem;
+max-width: 680px;
+margin: 0 auto;
+}
+.hero-tag {
+display: inline-block;
+font-size: 0.72rem;
+font-weight: 500;
+letter-spacing: 0.14em;
+text-transform: uppercase;
+color: var(–rust);
+margin-bottom: 1.2rem;
+border: 1px solid var(–rust);
+padding: 0.3rem 0.9rem;
+border-radius: 100px;
+}
+.hero h1 {
+font-family: ‘Playfair Display’, serif;
+font-size: clamp(2.4rem, 5vw, 3.8rem);
+line-height: 1.1;
+letter-spacing: -0.03em;
+margin-bottom: 1.2rem;
+}
+.hero h1 em {
+font-style: italic;
+color: var(–gold);
+}
+.hero p {
+color: var(–muted);
+font-size: 1.05rem;
+font-weight: 300;
+line-height: 1.7;
+max-width: 480px;
+margin: 0 auto;
+}
+
+/* ── CARD ── */
+.card {
+background: #fff;
+border: 1px solid var(–border);
+border-radius: 16px;
+max-width: 720px;
+margin: 0 auto 2rem;
+overflow: hidden;
+box-shadow: 0 4px 30px rgba(0,0,0,0.05);
+}
+
+.card-header {
+background: var(–ink);
+color: var(–cream);
+padding: 1.4rem 2rem;
+display: flex;
+align-items: center;
+gap: 0.75rem;
+}
+.card-header .step {
+width: 28px; height: 28px;
+border-radius: 50%;
+background: var(–gold);
+color: var(–ink);
+font-size: 0.8rem;
+font-weight: 700;
+display: grid;
+place-items: center;
+flex-shrink: 0;
+}
+.card-header h2 {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.15rem;
+font-weight: 700;
+}
+.card-header p {
+font-size: 0.8rem;
+opacity: 0.6;
+font-weight: 300;
+margin-top: 0.1rem;
+}
+
+.card-body { padding: 2rem; }
+
+/* ── FORM ── */
+.form-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 1.2rem;
+}
+.form-group {
+display: flex;
+flex-direction: column;
+gap: 0.5rem;
+}
+.form-group.full { grid-column: 1 / -1; }
+label {
+font-size: 0.78rem;
+font-weight: 500;
+letter-spacing: 0.06em;
+text-transform: uppercase;
+color: var(–muted);
+}
+input, textarea, select {
+font-family: ‘DM Sans’, sans-serif;
+font-size: 0.95rem;
+padding: 0.8rem 1rem;
+border: 1.5px solid var(–border);
+border-radius: 10px;
+background: var(–cream);
+color: var(–ink);
+outline: none;
+transition: border-color 0.2s;
+resize: none;
+}
+input:focus, textarea:focus, select:focus {
+border-color: var(–gold);
+background: #fff;
+}
+
+/* ── FORMAT SELECTOR ── */
+.format-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 0.8rem;
+}
+.format-btn {
+cursor: pointer;
+border: 1.5px solid var(–border);
+border-radius: 10px;
+padding: 0.9rem;
+text-align: center;
+background: var(–cream);
+transition: all 0.18s;
+user-select: none;
+}
+.format-btn:hover { border-color: var(–gold); }
+.format-btn.active {
+border-color: var(–gold);
+background: #fff9ec;
+}
+.format-btn .icon { font-size: 1.4rem; margin-bottom: 0.3rem; }
+.format-btn .name { font-size: 0.78rem; font-weight: 500; }
+.format-btn .desc { font-size: 0.68rem; color: var(–muted); margin-top: 0.1rem; }
+
+/* ── TONE SELECTOR ── */
+.tone-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.tone-pill {
+cursor: pointer;
+border: 1.5px solid var(–border);
+border-radius: 100px;
+padding: 0.4rem 1rem;
+font-size: 0.8rem;
+font-weight: 400;
+background: var(–cream);
+transition: all 0.18s;
+user-select: none;
+}
+.tone-pill:hover { border-color: var(–gold); }
+.tone-pill.active {
+border-color: var(–gold);
+background: var(–gold);
+color: var(–ink);
+font-weight: 500;
+}
+
+/* ── CTA BUTTON ── */
+.btn-generate {
+width: 100%;
+padding: 1.1rem;
+background: var(–ink);
+color: var(–cream);
+border: none;
+border-radius: 12px;
+font-family: ‘DM Sans’, sans-serif;
+font-size: 1rem;
+font-weight: 500;
+letter-spacing: 0.02em;
+cursor: pointer;
+transition: all 0.2s;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 0.6rem;
+margin-top: 1.6rem;
+}
+.btn-generate:hover { background: #2a2720; transform: translateY(-1px); }
+.btn-generate:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.btn-generate .spinner {
+width: 18px; height: 18px;
+border: 2px solid rgba(255,255,255,0.3);
+border-top-color: #fff;
+border-radius: 50%;
+animation: spin 0.7s linear infinite;
+display: none;
+}
+.btn-generate.loading .spinner { display: block; }
+.btn-generate.loading .btn-text { opacity: 0.6; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── RESULT ── */
+#result-section { display: none; max-width: 720px; margin: 0 auto 4rem; }
+
+.result-toolbar {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 1rem 2rem;
+background: var(–warm);
+border-bottom: 1px solid var(–border);
+}
+.result-toolbar h3 {
+font-family: ‘Playfair Display’, serif;
+font-size: 1rem;
+}
+.toolbar-actions { display: flex; gap: 0.6rem; }
+.btn-small {
+padding: 0.45rem 1rem;
+border-radius: 8px;
+font-size: 0.78rem;
+font-family: ‘DM Sans’, sans-serif;
+font-weight: 500;
+cursor: pointer;
+transition: all 0.15s;
+border: 1.5px solid var(–border);
+background: #fff;
+color: var(–ink);
+}
+.btn-small:hover { border-color: var(–ink); }
+.btn-small.primary { background: var(–gold); border-color: var(–gold); }
+.btn-small.primary:hover { background: #b8943d; border-color: #b8943d; }
+
+#result-content {
+padding: 2rem;
+line-height: 1.85;
+font-size: 0.97rem;
+white-space: pre-wrap;
+min-height: 200px;
+}
+#result-content h2, #result-content h3 {
+font-family: ‘Playfair Display’, serif;
+margin: 1.2rem 0 0.5rem;
+}
+#result-content strong { font-weight: 600; }
+
+/* ── UPGRADE BANNER ── */
+.upgrade-banner {
+background: linear-gradient(135deg, var(–ink) 0%, #2e2920 100%);
+color: var(–cream);
+border-radius: 16px;
+padding: 2.5rem 3rem;
+max-width: 720px;
+margin: 0 auto 4rem;
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 2rem;
+flex-wrap: wrap;
+}
+.upgrade-banner h3 {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.5rem;
+margin-bottom: 0.5rem;
+}
+.upgrade-banner p { font-size: 0.88rem; opacity: 0.7; font-weight: 300; }
+.price-tag {
+text-align: center;
+flex-shrink: 0;
+}
+.price-tag .amount {
+font-family: ‘Playfair Display’, serif;
+font-size: 2.5rem;
+color: var(–gold);
+line-height: 1;
+}
+.price-tag .period { font-size: 0.78rem; opacity: 0.6; margin-top: 0.3rem; }
+.btn-upgrade {
+width: 100%;
+margin-top: 1rem;
+padding: 0.7rem;
+background: var(–gold);
+color: var(–ink);
+border: none;
+border-radius: 10px;
+font-weight: 700;
+font-size: 0.85rem;
+cursor: pointer;
+font-family: ‘DM Sans’, sans-serif;
+transition: background 0.2s;
+}
+.btn-upgrade:hover { background: var(–gold-light); }
+
+/* ── CREDITS COUNTER ── */
+.credits-bar {
+max-width: 720px;
+margin: 0 auto 1.5rem;
+display: flex;
+align-items: center;
+justify-content: space-between;
+font-size: 0.8rem;
+color: var(–muted);
+padding: 0 0.5rem;
+}
+.credits-used {
+display: flex;
+gap: 4px;
+}
+.credit-dot {
+width: 8px; height: 8px;
+border-radius: 50%;
+background: var(–border);
+transition: background 0.3s;
+}
+.credit-dot.used { background: var(–rust); }
+
+/* ── FOOTER ── */
+footer {
+text-align: center;
+padding: 2.5rem;
+font-size: 0.78rem;
+color: var(–muted);
+border-top: 1px solid var(–border);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+header { padding: 1rem 1.5rem; }
+.card-body { padding: 1.5rem; }
+.form-grid { grid-template-columns: 1fr; }
+.format-grid { grid-template-columns: 1fr 1fr; }
+.upgrade-banner { padding: 2rem; text-align: center; justify-content: center; }
+}
+
+/* ── ANIMATIONS ── */
+.fade-in {
+animation: fadeIn 0.4s ease forwards;
+}
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(12px); }
+to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+</head>
+<body>
+
+<!-- HEADER -->
+
+<header>
+  <div class="logo">Pitch<span>Craft</span></div>
+  <div class="badge">✦ IA intégrée</div>
+</header>
+
+<!-- HERO -->
+
+<section class="hero">
+  <div class="hero-tag">Générateur intelligent</div>
+  <h1>Des fiches produits qui <em>vendent</em>,<br>en 10 secondes.</h1>
+  <p>Décrivez votre produit ou service en quelques mots — PitchCraft rédige une fiche commerciale percutante grâce à l'IA.</p>
+</section>
+
+<!-- CREDITS BAR -->
+
+<div class="credits-bar" id="credits-bar">
+  <span>Essais gratuits restants :</span>
+  <div class="credits-used" id="credit-dots">
+    <div class="credit-dot" id="d1"></div>
+    <div class="credit-dot" id="d2"></div>
+    <div class="credit-dot" id="d3"></div>
+  </div>
+</div>
+
+<!-- FORM CARD -->
+
+<div class="card fade-in">
+  <div class="card-header">
+    <div class="step">1</div>
+    <div>
+      <h2>Décrivez votre produit ou service</h2>
+      <p>Plus c'est précis, plus le résultat est percutant.</p>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Nom du produit / service</label>
+        <input type="text" id="product-name" placeholder="ex : Coaching carrière senior" />
+      </div>
+      <div class="form-group">
+        <label>Secteur / catégorie</label>
+        <input type="text" id="product-category" placeholder="ex : RH, mode, alimentation..." />
+      </div>
+      <div class="form-group full">
+        <label>Description en 2-3 phrases</label>
+        <textarea id="product-desc" rows="3" placeholder="Que fait votre produit ? Pour qui ? Quel problème résout-il ?"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Prix (optionnel)</label>
+        <input type="text" id="product-price" placeholder="ex : 49€/mois, à partir de 99€..." />
+      </div>
+      <div class="form-group">
+        <label>Cible principale</label>
+        <input type="text" id="product-target" placeholder="ex : freelances, PME, mamans..." />
+      </div>
+    </div>
+
+```
+<!-- FORMAT -->
+<div style="margin-top: 1.6rem;">
+  <label>Format de sortie</label>
+  <div class="format-grid" style="margin-top: 0.7rem;" id="format-grid">
+    <div class="format-btn active" data-format="fiche">
+      <div class="icon">📄</div>
+      <div class="name">Fiche produit</div>
+      <div class="desc">Structurée & complète</div>
+    </div>
+    <div class="format-btn" data-format="pitch">
+      <div class="icon">🎯</div>
+      <div class="name">Pitch 30 sec</div>
+      <div class="desc">Court & impactant</div>
+    </div>
+    <div class="format-btn" data-format="linkedin">
+      <div class="icon">💼</div>
+      <div class="name">Post LinkedIn</div>
+      <div class="desc">Prêt à publier</div>
+    </div>
+  </div>
+</div>
+
+<!-- TONE -->
+<div style="margin-top: 1.4rem;">
+  <label>Ton</label>
+  <div class="tone-pills" style="margin-top: 0.7rem;" id="tone-pills">
+    <div class="tone-pill active" data-tone="professionnel">Professionnel</div>
+    <div class="tone-pill" data-tone="enthousiaste">Enthousiaste</div>
+    <div class="tone-pill" data-tone="luxe">Luxe & premium</div>
+    <div class="tone-pill" data-tone="direct">Direct & percutant</div>
+    <div class="tone-pill" data-tone="chaleureux">Chaleureux</div>
+  </div>
+</div>
+
+<button class="btn-generate" id="btn-generate" onclick="generate()">
+  <div class="spinner"></div>
+  <span class="btn-text">✦ Générer ma fiche</span>
+</button>
+```
+
+  </div>
+</div>
+
+<!-- RESULT -->
+
+<div id="result-section">
+  <div class="card fade-in">
+    <div class="result-toolbar">
+      <h3>✦ Votre contenu généré</h3>
+      <div class="toolbar-actions">
+        <button class="btn-small" onclick="copyResult()">📋 Copier</button>
+        <button class="btn-small primary" onclick="generate()">↻ Regénérer</button>
+      </div>
+    </div>
+    <div id="result-content"></div>
+  </div>
+
+  <!-- UPGRADE BANNER -->
+
+  <div class="upgrade-banner fade-in" id="upgrade-banner" style="display:none;">
+    <div>
+      <h3>Passez à l'illimité 🚀</h3>
+      <p>Générez autant de fiches que vous voulez, débloquez les exports PDF et les modèles avancés.</p>
+    </div>
+    <div class="price-tag">
+      <div class="amount">9€</div>
+      <div class="period">par mois</div>
+      <button class="btn-upgrade" onclick="window.open('https://buy.stripe.com/9B64gzbckcV1dV5eVVes000', '_blank')">Commencer →</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+  PitchCraft · Propulsé par l'IA · Tous droits réservés 2025
+</footer>
+
+<script>
+  // ── STATE ──
+  let selectedFormat = 'fiche';
+  let selectedTone = 'professionnel';
+  let usedCredits = 0;
+  const MAX_FREE = 3;
+
+  // ── FORMAT SELECTOR ──
+  document.querySelectorAll('.format-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.format-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedFormat = btn.dataset.format;
+    });
+  });
+
+  // ── TONE SELECTOR ──
+  document.querySelectorAll('.tone-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('.tone-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      selectedTone = pill.dataset.tone;
+    });
+  });
+
+  // ── CREDITS ──
+  function updateCredits() {
+    for (let i = 1; i <= MAX_FREE; i++) {
+      const dot = document.getElementById('d' + i);
+      if (dot) dot.classList.toggle('used', i <= usedCredits);
+    }
+  }
+
+  // ── FORMAT PROMPTS ──
+  function buildPrompt() {
+    const name = document.getElementById('product-name').value || 'ce produit';
+    const category = document.getElementById('product-category').value || '';
+    const desc = document.getElementById('product-desc').value || '';
+    const price = document.getElementById('product-price').value || '';
+    const target = document.getElementById('product-target').value || '';
+
+    const toneMap = {
+      professionnel: 'professionnel et crédible',
+      enthousiaste: 'enthousiaste et dynamique',
+      luxe: 'luxueux, premium et raffiné',
+      direct: 'direct, percutant et orienté action',
+      chaleureux: 'chaleureux, humain et bienveillant'
+    };
+
+    const formatInstructions = {
+      fiche: `Génère une fiche produit complète et structurée avec :
+- Un titre accrocheur
+- Une phrase d'accroche (1-2 phrases)
+- La section "Ce que c'est" (2-3 phrases)
+- La section "Pour qui ?" (2-3 bullets)
+- La section "Les bénéfices clés" (3-4 bullets avec emoji)
+- Un appel à l'action final`,
+
+      pitch: `Génère un pitch de 30 secondes (environ 80 mots) ultra-impactant.
+Structure : accroche forte → problème → solution → bénéfice → appel à l'action.
+Pas de titres, juste du texte fluide et percutant.`,
+
+      linkedin: `Génère un post LinkedIn optimisé pour l'engagement.
+Structure : hook fort (1 ligne) → histoire courte ou insight → valeur du produit → appel à l'action + hashtags pertinents.
+Longueur : 150-200 mots.`
+    };
+
+    return `Tu es un expert en copywriting et marketing.
+
+Produit/service : "${name}"
+${category ? `Catégorie : ${category}` : ''}
+${desc ? `Description : ${desc}` : ''}
+${price ? `Prix : ${price}` : ''}
+${target ? `Cible : ${target}` : ''}
+Ton souhaité : ${toneMap[selectedTone]}
+
+${formatInstructions[selectedFormat]}
+
+Rédige uniquement le contenu demandé, en français, sans introduction ni commentaire. Sois précis, vendeur et percutant.`;
+  }
+
+  // ── GENERATE ──
+  async function generate() {
+    const btn = document.getElementById('btn-generate');
+
+    if (usedCredits >= MAX_FREE) {
+      document.getElementById('upgrade-banner').style.display = 'flex';
+      document.getElementById('upgrade-banner').scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+
+    btn.disabled = true;
+    btn.classList.add('loading');
+
+    try {
+      const response = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-20250514",
+          max_tokens: 1000,
+          messages: [{ role: "user", content: buildPrompt() }]
+        })
+      });
+
+      const data = await response.json();
+      const text = data.content?.map(b => b.text || '').join('') || "Erreur lors de la génération.";
+
+      // Show result
+      const resultSection = document.getElementById('result-section');
+      const resultContent = document.getElementById('result-content');
+      resultContent.textContent = text;
+      resultSection.style.display = 'block';
+      resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // Update credits
+      usedCredits++;
+      updateCredits();
+
+      if (usedCredits >= MAX_FREE) {
+        setTimeout(() => {
+          document.getElementById('upgrade-banner').style.display = 'flex';
+        }, 800);
+      }
+
+    } catch (err) {
+      document.getElementById('result-content').textContent = "Une erreur est survenue. Vérifiez votre connexion et réessayez.";
+      document.getElementById('result-section').style.display = 'block';
+    }
+
+    btn.disabled = false;
+    btn.classList.remove('loading');
+  }
+
+  // ── COPY ──
+  function copyResult() {
+    const text = document.getElementById('result-content').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = event.target;
+      btn.textContent = '✓ Copié !';
+      setTimeout(() => btn.textContent = '📋 Copier', 2000);
+    });
+  }
+
+  updateCredits();
+</script>
+
+</body>
+</html>
