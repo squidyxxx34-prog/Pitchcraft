@@ -180,8 +180,7 @@ background: #1a1816;
 display: grid;
 grid-template-columns: repeat(3, 1fr);
 gap: 0.8rem;
-}
-.format-btn {
+}  .format-btn {
 cursor: pointer;
 border: 1.5px solid #3a3835;
 border-radius: 10px;
@@ -204,6 +203,20 @@ box-shadow: inset 0 0 0 1px rgba(201,168,76,0.3);
 .format-btn.active .name { color: var(–gold); }
 .format-btn .desc { font-size: 0.68rem; color: #706c66; margin-top: 0.1rem; }
 .format-btn.active .desc { color: #9a9690; }
+.pro-tag {
+display: inline-block;
+font-size: 0.55rem;
+font-weight: 700;
+background: var(–gold);
+color: #0e0c0a;
+padding: 0.1rem 0.4rem;
+border-radius: 4px;
+vertical-align: middle;
+margin-left: 2px;
+letter-spacing: 0.05em;
+}
+.pro-format { opacity: 0.6; }
+.pro-format.active, .pro-format:hover { opacity: 1; }
 
 /* ── TONE SELECTOR ── */
 .tone-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
@@ -524,6 +537,45 @@ to { opacity: 1; transform: translateY(0); }
       <div class="name">Post LinkedIn</div>
       <div class="desc">Prêt à publier</div>
     </div>
+    <div class="format-btn" data-format="nom">
+      <div class="icon">✨</div>
+      <div class="name">Nom de marque</div>
+      <div class="desc">5 idées de noms</div>
+    </div>
+    <div class="format-btn" data-format="slogan">
+      <div class="icon">💡</div>
+      <div class="name">Slogan</div>
+      <div class="desc">Mémorable & percutant</div>
+    </div>
+    <div class="format-btn" data-format="bio">
+      <div class="icon">👤</div>
+      <div class="name">Bio pro</div>
+      <div class="desc">Instagram / LinkedIn</div>
+    </div>
+    <div class="format-btn pro-format" data-format="email">
+      <div class="icon">📧</div>
+      <div class="name">Email prospect <span class="pro-tag">PRO</span></div>
+      <div class="desc">Convaincre un client</div>
+    </div>
+    <div class="format-btn pro-format" data-format="script">
+      <div class="icon">🎬</div>
+      <div class="name">Script vidéo <span class="pro-tag">PRO</span></div>
+      <div class="desc">Présentation 60 sec</div>
+    </div>
+    <div class="format-btn pro-format" data-format="faq">
+      <div class="icon">❓</div>
+      <div class="name">FAQ produit <span class="pro-tag">PRO</span></div>
+      <div class="desc">5 questions / réponses</div>
+    </div>
+  </div>
+</div>
+
+<!-- LANGUE -->
+<div style="margin-top: 1.4rem;">
+  <label>Langue</label>
+  <div class="tone-pills" style="margin-top: 0.7rem;" id="lang-pills">
+    <div class="tone-pill active" data-lang="fr">🇫🇷 Français</div>
+    <div class="tone-pill" data-lang="en">🇬🇧 Anglais</div>
   </div>
 </div>
 
@@ -587,15 +639,33 @@ to { opacity: 1; transform: translateY(0); }
   // ── STATE ──
   let selectedFormat = 'fiche';
   let selectedTone = 'professionnel';
+  let selectedLang = 'fr';
   let usedCredits = 0;
   const MAX_FREE = 3;
+  const PRO_FORMATS = ['email', 'script', 'faq'];
 
   // ── FORMAT SELECTOR ──
   document.querySelectorAll('.format-btn').forEach(btn => {
     btn.addEventListener('click', () => {
+      const fmt = btn.dataset.format;
+      if (PRO_FORMATS.includes(fmt) && usedCredits < MAX_FREE) {
+        document.getElementById('upgrade-banner').style.display = 'flex';
+        document.getElementById('result-section').style.display = 'block';
+        document.getElementById('upgrade-banner').scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
       document.querySelectorAll('.format-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      selectedFormat = btn.dataset.format;
+      selectedFormat = fmt;
+    });
+  });
+
+  // ── LANG SELECTOR ──
+  document.querySelectorAll('[data-lang]').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('[data-lang]').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      selectedLang = pill.dataset.lang;
     });
   });
 
@@ -647,8 +717,38 @@ Pas de titres, juste du texte fluide et percutant.`,
 
       linkedin: `Génère un post LinkedIn optimisé pour l'engagement.
 Structure : hook fort (1 ligne) → histoire courte ou insight → valeur du produit → appel à l'action + hashtags pertinents.
-Longueur : 150-200 mots.`
+Longueur : 150-200 mots.`,
+
+      nom: `Génère 5 idées de noms de marque originaux et mémorables pour ce produit/service.
+Pour chaque nom : le nom + 1 ligne d'explication (pourquoi ce nom fonctionne).
+Les noms doivent être courts (1-2 mots max), prononçables, et disponibles potentiellement en .com.`,
+
+      slogan: `Génère 5 slogans percutants et mémorables pour ce produit/service.
+Variété : 1 accrocheur, 1 promesse forte, 1 émotionnel, 1 humouristique, 1 premium.
+Format : slogan uniquement, une ligne chacun, avec une courte note d'explication.`,
+
+      bio: `Génère 3 versions de bio professionnelle pour ce produit/service :
+- Version courte (Instagram, 150 caractères max)
+- Version LinkedIn (300 caractères)
+- Version longue (site web, 2-3 phrases)
+Chaque bio doit inclure la valeur principale et un appel à l'action.`,
+
+      email: `Génère un email de prospection client percutant.
+Structure : objet accrocheur + corps en 3 paragraphes (accroche personnalisée, valeur, appel à l'action) + signature.
+Ton direct, pas de formules creuses. Max 150 mots dans le corps.`,
+
+      script: `Génère un script vidéo de présentation de 60 secondes (environ 150 mots).
+Structure : accroche choc (5 sec) → problème (10 sec) → solution (20 sec) → preuve/bénéfice (15 sec) → appel à l'action (10 sec).
+Format naturel, comme si on parlait à la caméra.`,
+
+      faq: `Génère une FAQ produit avec 5 questions-réponses pertinentes.
+Les questions doivent refléter les vraies objections et curiosités des clients potentiels.
+Format : Question en gras + réponse de 2-3 phrases claire et rassurante.`
     };
+
+    const langNote = selectedLang === 'en'
+      ? '\n\nIMPORTANT: Write the entire response in English.'
+      : '';
 
     return `Tu es un expert en copywriting et marketing.
 
@@ -661,11 +761,11 @@ Ton souhaité : ${toneMap[selectedTone]}
 
 ${formatInstructions[selectedFormat]}
 
-Rédige uniquement le contenu demandé, en français, sans introduction ni commentaire. Sois précis, vendeur et percutant.`;
+Rédige uniquement le contenu demandé, en français, sans introduction ni commentaire. Sois précis, vendeur et percutant.${langNote}`;
   }
 
   // ── API KEY ──
-  const GROQ_KEY = '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';
+  const GROQ_KEY = 'COLLE_TA_CLÉ_GROQ_ICI';
   function getKey() { return GROQ_KEY; }
   window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('api-banner').style.display = 'none';
