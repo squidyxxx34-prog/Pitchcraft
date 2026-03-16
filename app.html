@@ -183,22 +183,27 @@ gap: 0.8rem;
 }
 .format-btn {
 cursor: pointer;
-border: 1.5px solid var(–border);
+border: 1.5px solid #3a3835;
 border-radius: 10px;
 padding: 0.9rem;
 text-align: center;
 background: #1a1816;
+color: #9a9690;
 transition: all 0.18s;
 user-select: none;
 }
-.format-btn:hover { border-color: var(–gold); }
+.format-btn:hover { border-color: var(–gold); color: #e8e4de; }
 .format-btn.active {
 border-color: var(–gold);
-background: #1e1a10;
+background: rgba(201,168,76,0.12);
+color: #e8e4de;
+box-shadow: inset 0 0 0 1px rgba(201,168,76,0.3);
 }
 .format-btn .icon { font-size: 1.4rem; margin-bottom: 0.3rem; }
-.format-btn .name { font-size: 0.78rem; font-weight: 500; }
-.format-btn .desc { font-size: 0.68rem; color: var(–muted); margin-top: 0.1rem; }
+.format-btn .name { font-size: 0.78rem; font-weight: 600; }
+.format-btn.active .name { color: var(–gold); }
+.format-btn .desc { font-size: 0.68rem; color: #706c66; margin-top: 0.1rem; }
+.format-btn.active .desc { color: #9a9690; }
 
 /* ── TONE SELECTOR ── */
 .tone-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
@@ -206,11 +211,11 @@ background: #1e1a10;
 cursor: pointer;
 border: 1.5px solid #3a3835;
 border-radius: 100px;
-padding: 0.45rem 1.1rem;
-font-size: 0.8rem;
+padding: 0.5rem 1.2rem;
+font-size: 0.82rem;
 font-weight: 400;
 background: #1a1816;
-color: #9a9690;
+color: #706c66;
 transition: all 0.18s;
 user-select: none;
 }
@@ -219,7 +224,8 @@ user-select: none;
 border-color: var(–gold);
 background: var(–gold);
 color: #0e0c0a;
-font-weight: 600;
+font-weight: 700;
+box-shadow: 0 2px 12px rgba(201,168,76,0.3);
 }
 
 /* ── CTA BUTTON ── */
@@ -409,6 +415,41 @@ to { opacity: 1; transform: translateY(0); }
   <div class="logo">Pitch<span>Craft</span></div>
   <div class="badge">✦ IA intégrée</div>
 </header>
+
+<!-- API KEY BANNER -->
+
+<div id="api-banner" style="
+  background:#1a1410;
+  border-bottom:1px solid #3a2a1a;
+  padding:0.75rem 2rem;
+  display:flex;
+  align-items:center;
+  gap:0.8rem;
+  flex-wrap:wrap;
+  max-width:720px;
+  margin:0 auto;
+  border-radius:0 0 12px 12px;
+">
+  <span style="font-size:0.78rem;color:#c9a84c;font-weight:600;white-space:nowrap;">🔑 Clé API requise</span>
+  <input
+    type="password"
+    id="api-key-input"
+    placeholder="sk-ant-..."
+    style="
+      flex:1;min-width:180px;
+      background:#0e0c0a;
+      border:1px solid #3a3835;
+      border-radius:8px;
+      padding:0.45rem 0.8rem;
+      color:#e8e4de;
+      font-size:0.82rem;
+      font-family:'DM Sans',sans-serif;
+      outline:none;
+    "
+    oninput="saveKey(this.value)"
+  />
+  <span style="font-size:0.72rem;color:#4a4845;">Stockée localement · Non envoyée à nos serveurs</span>
+</div>
 
 <!-- HERO -->
 
@@ -623,9 +664,26 @@ ${formatInstructions[selectedFormat]}
 Rédige uniquement le contenu demandé, en français, sans introduction ni commentaire. Sois précis, vendeur et percutant.`;
   }
 
+  // ── API KEY ──
+  const HARDCODED_KEY = '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';
+  function saveKey(val) { localStorage.setItem('pc_api_key', val); }
+  function getKey() { return HARDCODED_KEY; }
+  window.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('api-banner').style.display = 'none';
+  });
+
   // ── GENERATE ──
   async function generate() {
     const btn = document.getElementById('btn-generate');
+    const apiKey = getKey();
+
+    if (!apiKey || !apiKey.startsWith('sk-ant-')) {
+      document.getElementById('api-key-input').focus();
+      document.getElementById('api-key-input').style.borderColor = '#c9a84c';
+      document.getElementById('result-content').textContent = "⚠️ Entrez votre clé API Anthropic ci-dessus pour générer.";
+      document.getElementById('result-section').style.display = 'block';
+      return;
+    }
 
     if (usedCredits >= MAX_FREE) {
       document.getElementById('upgrade-banner').style.display = 'flex';
@@ -641,23 +699,34 @@ Rédige uniquement le contenu demandé, en français, sans introduction ni comme
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "x-api-key": apiKey,
           "anthropic-version": "2023-06-01",
           "anthropic-dangerous-direct-browser-access": "true"
         },
         body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
+          model: "claude-sonnet-4-5",
           max_tokens: 1000,
           messages: [{ role: "user", content: buildPrompt() }]
         })
       });
 
       const data = await response.json();
+      console.log('API response:', JSON.stringify(data));
 
       if (!response.ok) {
         throw new Error(data.error?.message || `Erreur ${response.status}`);
       }
 
-      const text = data.content?.map(b => b.text || '').join('') || "Erreur lors de la génération.";
+      let text = '';
+      if (Array.isArray(data.content)) {
+        text = data.content.map(b => b.text || '').join('');
+      } else if (typeof data.content === 'string') {
+        text = data.content;
+      }
+      if (!text) {
+        console.log('data keys:', Object.keys(data));
+        throw new Error('Réponse vide — voir console pour détails.');
+      }
 
       // Show result
       const resultSection = document.getElementById('result-section');
@@ -678,7 +747,7 @@ Rédige uniquement le contenu demandé, en français, sans introduction ni comme
 
     } catch (err) {
       const msg = err.message?.includes('fetch') || err.message?.includes('Failed')
-        ? "Erreur de connexion à l'IA. Assurez-vous d'être sur une connexion stable et réessayez."
+        ? "Erreur de connexion. Vérifiez votre connexion et réessayez."
         : `Erreur : ${err.message}`;
       document.getElementById('result-content').textContent = msg;
       document.getElementById('result-section').style.display = 'block';
