@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Bienvenue chez PitchCraft Pro ✦</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+font-family: ‘DM Sans’, sans-serif;
+background: #0e0c0a;
+color: #e8e4de;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 2rem;
+overflow: hidden;
+}
+
+/* ── PARTICLES ── */
+.particles {
+position: fixed;
+inset: 0;
+pointer-events: none;
+z-index: 0;
+}
+.particle {
+position: absolute;
+width: 2px; height: 2px;
+background: #c9a84c;
+border-radius: 50%;
+animation: float linear infinite;
+opacity: 0;
+}
+@keyframes float {
+0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+10%  { opacity: 0.6; }
+90%  { opacity: 0.4; }
+100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+}
+
+/* ── CARD ── */
+.card {
+position: relative;
+z-index: 1;
+background: #141210;
+border: 1px solid #3a3835;
+border-radius: 24px;
+padding: 3.5rem 3rem;
+max-width: 520px;
+width: 100%;
+text-align: center;
+box-shadow: 0 0 80px rgba(201,168,76,0.08);
+animation: cardIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes cardIn {
+from { opacity: 0; transform: translateY(30px) scale(0.97); }
+to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── BADGE ── */
+.badge-wrap {
+display: flex;
+justify-content: center;
+margin-bottom: 2rem;
+animation: badgeIn 0.6s ease 0.3s both;
+}
+@keyframes badgeIn {
+from { opacity: 0; transform: scale(0.5); }
+to   { opacity: 1; transform: scale(1); }
+}
+.badge-circle {
+width: 80px; height: 80px;
+border-radius: 50%;
+background: linear-gradient(135deg, #c9a84c, #e8d49a);
+display: grid;
+place-items: center;
+font-size: 2rem;
+box-shadow: 0 0 40px rgba(201,168,76,0.3);
+}
+
+/* ── TEXTES ── */
+.eyebrow {
+font-size: 0.7rem;
+font-weight: 600;
+letter-spacing: 0.16em;
+text-transform: uppercase;
+color: #c9a84c;
+margin-bottom: 0.8rem;
+animation: fadeUp 0.5s ease 0.4s both;
+}
+h1 {
+font-family: ‘Fraunces’, serif;
+font-size: clamp(2rem, 5vw, 2.8rem);
+font-weight: 900;
+line-height: 1.1;
+letter-spacing: -0.03em;
+margin-bottom: 1rem;
+animation: fadeUp 0.5s ease 0.5s both;
+}
+h1 em { font-style: italic; font-weight: 300; color: #c9a84c; }
+.subtitle {
+font-size: 0.95rem;
+color: #9a9690;
+font-weight: 300;
+line-height: 1.7;
+margin-bottom: 2.5rem;
+animation: fadeUp 0.5s ease 0.6s both;
+}
+
+/* ── PERKS ── */
+.perks {
+display: flex;
+flex-direction: column;
+gap: 0.75rem;
+margin-bottom: 2.5rem;
+text-align: left;
+animation: fadeUp 0.5s ease 0.7s both;
+}
+.perk {
+display: flex;
+align-items: center;
+gap: 0.9rem;
+background: rgba(201,168,76,0.06);
+border: 1px solid rgba(201,168,76,0.15);
+border-radius: 12px;
+padding: 0.9rem 1.2rem;
+}
+.perk-icon { font-size: 1.2rem; flex-shrink: 0; }
+.perk-text { font-size: 0.88rem; line-height: 1.4; }
+.perk-text strong { color: #e8e4de; font-weight: 600; display: block; }
+.perk-text span { color: #9a9690; font-size: 0.78rem; }
+
+/* ── CTA ── */
+.btn-cta {
+display: block;
+width: 100%;
+padding: 1.1rem;
+background: #c9a84c;
+color: #0e0c0a;
+border: none;
+border-radius: 14px;
+font-family: ‘DM Sans’, sans-serif;
+font-size: 1rem;
+font-weight: 700;
+cursor: pointer;
+text-decoration: none;
+transition: all 0.2s;
+animation: fadeUp 0.5s ease 0.8s both;
+}
+.btn-cta:hover {
+background: #e8d49a;
+transform: translateY(-2px);
+box-shadow: 0 8px 30px rgba(201,168,76,0.25);
+}
+.note {
+margin-top: 1rem;
+font-size: 0.75rem;
+color: #4a4845;
+animation: fadeUp 0.5s ease 0.9s both;
+}
+
+/* ── DIVIDER ── */
+.divider {
+border: none;
+border-top: 1px solid #2a2826;
+margin: 2rem 0;
+}
+
+/* ── FOOTER ── */
+.footer-logo {
+position: fixed;
+bottom: 2rem;
+left: 50%;
+transform: translateX(-50%);
+font-family: ‘Fraunces’, serif;
+font-size: 1rem;
+font-weight: 900;
+color: #2a2826;
+letter-spacing: -0.02em;
+z-index: 1;
+}
+.footer-logo span { color: #3a3020; }
+
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(12px); }
+to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 500px) {
+.card { padding: 2.5rem 1.5rem; }
+}
+</style>
+
+</head>
+<body>
+
+<!-- PARTICLES -->
+
+<div class="particles" id="particles"></div>
+
+<!-- CARD -->
+
+<div class="card">
+  <div class="badge-wrap">
+    <div class="badge-circle">✦</div>
+  </div>
+
+  <div class="eyebrow">Paiement confirmé</div>
+  <h1>Bienvenue dans<br><em>PitchCraft Pro.</em></h1>
+  <p class="subtitle">Votre abonnement est actif. Vous avez maintenant accès à toutes les fonctionnalités illimitées.</p>
+
+  <div class="perks">
+    <div class="perk">
+      <div class="perk-icon">♾️</div>
+      <div class="perk-text">
+        <strong>Générations illimitées</strong>
+        <span>Créez autant de fiches que vous voulez, sans limite.</span>
+      </div>
+    </div>
+    <div class="perk">
+      <div class="perk-icon">🎯</div>
+      <div class="perk-text">
+        <strong>Tous les formats débloqués</strong>
+        <span>Fiche produit, pitch 30 sec, post LinkedIn et plus.</span>
+      </div>
+    </div>
+    <div class="perk">
+      <div class="perk-icon">⚡</div>
+      <div class="perk-text">
+        <strong>Priorité de traitement</strong>
+        <span>Vos générations passent en tête de file.</span>
+      </div>
+    </div>
+  </div>
+
+<a href="app.html" class="btn-cta">✦ Accéder à PitchCraft Pro →</a>
+
+  <p class="note">Un email de confirmation vous a été envoyé par Stripe · Résiliation possible à tout moment</p>
+</div>
+
+<div class="footer-logo">Pitch<span>Craft</span></div>
+
+<script>
+// Génère des particules dorées flottantes
+const container = document.getElementById('particles');
+for (let i = 0; i < 30; i++) {
+  const p = document.createElement('div');
+  p.className = 'particle';
+  p.style.left = Math.random() * 100 + 'vw';
+  p.style.width = p.style.height = (Math.random() * 3 + 1) + 'px';
+  p.style.animationDuration = (Math.random() * 8 + 6) + 's';
+  p.style.animationDelay = (Math.random() * 8) + 's';
+  container.appendChild(p);
+}
+</script>
+
+</body>
+</html>
